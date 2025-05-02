@@ -24,7 +24,6 @@ A simple timed quiz application built with PHP and MySQL. Users can answer multi
 ## 📁 Project Structure
 
 ```
-
 /quiz\_app
 ├── db/
 │   └── Database.php          # Database connection class using PDO
