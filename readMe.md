@@ -90,6 +90,3 @@ Make sure `session_start()` is included in `session.php` and is required at the 
 This project is open source under the MIT License.
 
 ```
-
-Let me know if you want this version tailored for deployment or to include user registration/login features.
-```
