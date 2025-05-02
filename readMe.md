@@ -1,6 +1,3 @@
-Sure! Here’s a simple and clear README.md file for your PHP Quiz App project:
-
-📄 README.md
 
 ```markdown
 # PHP Quiz App 🧠
