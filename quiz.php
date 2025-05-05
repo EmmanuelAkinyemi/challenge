@@ -36,7 +36,7 @@ class Quiz
 
     public function displayForm(): void
     {
-        echo '<div id="timer" style="font-size: 20px; font-weight: bold;">Time left: 15:00</div>';
+        echo '<div id="timer">Time left: 15:00</div>';
 
         echo '<form id="quizForm" method="post">';
         foreach ($this->questions as $index => $q) {
@@ -85,19 +85,120 @@ class Quiz
     const timerInterval = setInterval(updateTimer, 1000);
 </script>
 JS;
+
+        // Adding CSS styles directly in the file
+        echo <<<CSS
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
     }
 
-    // public function gradeQuiz(array $postData): void
-    // {
-    //     $score = 0;
-    //     foreach ($this->questions as $index => $q) {
-    //         $key = 'q' . $index;
-    //         if (isset($postData[$key]) && $postData[$key] == $q[2]) {
-    //             $score++;
-    //         }
-    //     }
-    //     echo "<h2>You scored $score / " . count($this->questions) . "</h2>";
-    // }
+    body {
+        background-color: #f4f6f8;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .quiz-container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 100%;
+        max-width: 800px;
+        text-align: left; /* Move quiz to the left */
+    }
+
+    #timer {
+        font-size: 20px;
+        font-weight: bold;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .question {
+        margin-bottom: 20px;
+    }
+
+    .question label {
+        display: block;
+        margin: 5px 0;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .question input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    #timer.green {
+        color: green;
+    }
+
+    #timer.orange {
+        color: orange;
+    }
+
+    #timer.red {
+        color: red;
+    }
+
+    /* Scoreboard Styling */
+    .scoreboard {
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .scoreboard h2 {
+        font-size: 30px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .scoreboard p {
+        font-size: 22px;
+        margin: 10px 0;
+        color: #666;
+    }
+</style>
+CSS;
+    }
 
     public function gradeQuiz(array $postData): void
     {
@@ -118,7 +219,10 @@ JS;
         $stmt = $pdo->prepare("INSERT INTO results (user_id, score, total) VALUES (?, ?, ?)");
         $stmt->execute([$userId, $score, $total]);
 
-        echo "<h2>You scored $score / $total</h2>";
+        echo "<div class='scoreboard'>";
+        echo "<h2>Your Score</h2>";
+        echo "<p>You scored <strong>$score</strong> out of <strong>$total</strong></p>";
+        echo "</div>";
     }
 }
 
